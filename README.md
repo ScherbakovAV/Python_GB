@@ -1,0 +1,1 @@
+It's repository for lessons and seminars of GeekBrains's "Python basics"
