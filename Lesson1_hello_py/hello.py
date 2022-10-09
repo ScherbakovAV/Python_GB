@@ -1,6 +1,3 @@
-from operator import inv
-
-
 print("hello world")
 
 a = 123
