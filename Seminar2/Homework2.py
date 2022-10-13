@@ -64,7 +64,7 @@ print(input('Для перехода к следующей задаче нажм
 # Пример:
 # Для n = 4 {1: 2, 2: 2.25, 3: 2.37, 4: 2.44} Сумма 9.06
 
-print(f'\n___3. Вывод списка суммы из n чисел последовательности (1+1/n)^n___\n')
+print(f'\n___3. Вывод списка из n чисел последовательности (1+1/n)^n и их суммы___\n')
 
 dict_size = abs(Enter_number("Введите целое положительное число:"))
 numbers_dict = {i : round(pow((1 + 1 / i), i), 2) for i in range(1, dict_size + 1)}
@@ -74,7 +74,7 @@ for j in numbers_dict.values():
     values_sum += j
 
 print(f'Для n = {dict_size} {numbers_dict}')
-print(f'Сумма значений = {values_sum}')
+print(f'Сумма значений = {round(values_sum, 3)}')
 
 print(input('Для перехода к следующей задаче нажмите "Enter"'))
 
@@ -90,19 +90,21 @@ interval_list = []
 for k in range(1, N + 1):
     interval_list.append(random.randint(-N, N))
 
-print(f'{N} элементов со значениями от {-N} до {N}: {interval_list}')
-
-data = open('file.txt', 'r')
-list_for_multiplications = []
-for line in data:
-    list_for_multiplications.append(int(line))
-data.close
+print(f'{N} случайных элементов со значениями от {-N} до {N}: {interval_list}')
 
 multiplication_of_position = 1
 print('Для значений по указанным в файле индексам:')
-for k in range(len(list_for_multiplications)):
-    print(f'[{list_for_multiplications[k]}] = {interval_list[list_for_multiplications[k]]}')
-    multiplication_of_position *= interval_list[list_for_multiplications[k]]
+
+data = open('file.txt', 'r')
+for line in data:
+    i = int(line.replace('\n', ''))
+    if i < N:
+        print(f'{[i]} = {interval_list[i]}')
+        multiplication_of_position *= interval_list[i]
+    else:
+        print(f'{[i]} - нет элемента')
+data.close
+
 print(f'произведение равно: {multiplication_of_position}')
 
 print(input('Для перехода к следующей задаче нажмите "Enter"'))
