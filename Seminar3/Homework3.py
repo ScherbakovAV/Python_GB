@@ -17,7 +17,7 @@ sum_odd_elements = 0
 
 for i in range(string1_length):
     string1.append(FunctHW3.My_random())
-    if i % 2 != 0 and i != 0:
+    if i % 2 != 0:
         sum_odd_elements += string1[i]
 
 print(f'Для списка {string1}\nсумма элементов с нечётными индексами равна {sum_odd_elements}')
@@ -72,7 +72,7 @@ for i in range(1, string3_length):
     string3.append(round(FunctHW3.My_random() + FunctHW3.My_random(2) / 100, 2))
     temp = round(string3[i] % 1, 2)
     if temp > max: max = temp
-    if temp < min and temp != 0: min = temp
+    elif temp < min and temp != 0: min = temp
 
 print(f'Для списка {string3}\nразница между максимальным ({max}) и минимальным ({min}) значением дробной части элементов равна {round(max - min, 2)}\n')
 
