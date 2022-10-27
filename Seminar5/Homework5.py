@@ -28,16 +28,11 @@ def Enter_number(text = '', type = 1): # функция ввода числа с
 
 # text = input('Введите текст для проверки: ')
 text = 'Незабвенный зимбабвийский главбух'
-lst1 = text.split(' ')
-print(lst1)
+print(text)
+lst1 = i for i in text.split() if 'абв' not in i
+print(' '.join(lst1))
 
-i = len(lst1) - 1
-while i >= 0:
-    if 'абв' in lst1[i]:
-        lst1.remove(lst1[i])
-    i -= 1
-
-print(lst1) """
+input('Нажмите Enter для перехода к следующей задаче...') """
 
 # 2. Создайте программу для игры с конфетами человек против человека.
 # Условие задачи: На столе лежит 2021 конфета. Играют два игрока делая ход друг после друга.
@@ -49,17 +44,28 @@ print(lst1) """
 
 print(f'\n____2. Игра с конфетами____\n')
 
+def game_mode():
+    print('Выберите тип игры:\n1 - "Игрок против игрока"\n2 - "Игрок против бота"\n3 - "Игрок против умного бота"', end = '')
+
+    while True:
+        game_type = Enter_number()
+        match game_type:
+            case 1: return game_type
+            case 2: return game_type
+            case 3: return game_type
+            case _: print('Такого режима нет. Введите число от 1 до 3: ', end = '')
+
 def Candies_game(candies = 2021, candies_max = 28, game_type = 1):
 
     move = random.randint(1,2)
     round = 1
     candies_given = 0
 
-    print(f'На столе лежат конфеты. Игроки 1 и 2 ходят по очереди. За один ход можно забрать не более чем {candies_max} конфет.')
-    print(f'Все конфеты оппонента достаются сделавшему последний ход.\nПервый ход делает {move} игрок')
+    print(f'\nНа столе лежат конфеты в количестве {candies} шт. Игроки 1 и 2 ходят по очереди.\nЗа один ход можно забрать не более чем {candies_max} конфет.')
+    print(f'Все конфеты оппонента достаются сделавшему последний ход.')
 
     if game_type == 1:
-        print('\nРежим игры "Игрок против игрока"')
+        print(f'\nРежим игры "Игрок против игрока"\nПервый ход делает {move} игрок')
 
         while candies!= 0:
             print(f'\nРаунд {round}. Конфет на столе - {candies} шт.')
@@ -85,8 +91,8 @@ def Candies_game(candies = 2021, candies_max = 28, game_type = 1):
             else: move = 1
 
     if game_type == 2 or game_type == 3:
-        if game_type == 2: print('\nРежим игры "Игрок против компьютера (упрощённый вариант)"')
-        elif game_type == 3: print('\nРежим игры "Игрок против компьютера (интеллектуальный бот)"')
+        if game_type == 2: print(f'\nРежим игры "Игрок против компьютера (упрощённый вариант)"\nПервый ход делает {move} игрок')
+        elif game_type == 3: print(f'\nРежим игры "Игрок против компьютера (интеллектуальный бот)"\nПервый ход делает {move} игрок')
 
         if move == 1:            
             while candies!= 0:
@@ -177,14 +183,92 @@ def Candies_game(candies = 2021, candies_max = 28, game_type = 1):
 candies_num = random.randint(50, 100)
 maximum = random.randint(5, 30)
 
-Candies_game(candies = candies_num, candies_max = maximum, game_type = 3)
+""" Candies_game(candies = candies_num, candies_max = maximum, game_type = game_mode())
+input('Нажмите Enter для перехода к следующей задаче...') """
 
 # 3. Создайте программу для игры в ""Крестики-нолики"".
+# X |   |X
+#    |O|
+# O|   |O
+#[[0,O,X],[0,O,X],[0,O,X]]
 
+print(f'\n____3. Игра в крестики-нолики____\n')
 
+listXO = [['-', '-', '-'], ['-', '-', '-'], ['-', '-', '-']]
+
+def Enter_XO(): # ввод строки, столбца и X или Y от пользователя
+    print('Введите через пробел: -номер строки- -номер столбца- -X или O-')
+    while True:
+        lst = input().split(' ')
+        if len(lst) == 3:
+            if int(lst[0]) in range(1, 4):
+                if int(lst[1]) in range(1, 4):
+                    if lst[2] in ['x', 'X', 'х', 'Х']:
+                        lst[2] = 'X'
+                        break
+                    elif lst[2] in ['o', 'O', 'о', 'О']:
+                        lst[2] = 'O'
+                        break
+                    else: print('Вы ошиблись во вводе символа X или O. Повторите ввод...')
+                else: print('Такого столбца нет. Повторите ввод...')
+            else: print('Такой строки нет. Повторите ввод...')
+        else: print('Вы ввели неверное количество данных. Повторите ввод...')
+    return lst
+
+def XO_to_table(table, filler): # запись введённого значения в поле игры по координатам
+    table[int(filler[0]) - 1][int(filler[1]) - 1] = filler[2]
+
+def Is_exists(XOtable, lst_value): # проверка наличия введённого значения в по его координатам в поле игры
+    check = False
+    if XOtable[int(lst_value[0]) - 1][int(lst_value[1]) - 1] == 'X' or XOtable[int(lst_value[0]) - 1][int(lst_value[1]) - 1] == 'O':
+        check = True
+    return check
+
+def Print_XOtable(table): # печать поля игры
+    print(f"\n{'  '.join(table[0])}")
+    print(f"{'  '.join(table[1])}")
+    print(f"{'  '.join(table[2])}\n")
+
+def Is_won(XOtable): # проверка выйгрыша
+    win = False
+    if XOtable[0][0] == XOtable[1][1] == XOtable[2][2] == 'X' or XOtable[0][0] == XOtable[1][1] == XOtable[2][2] == 'O':
+        win = True
+        return win
+    elif XOtable[2][0] == XOtable[1][1] == XOtable[0][2] == 'X' or XOtable[2][0] == XOtable[1][1] == XOtable[0][2] == 'O':
+        win = True
+        return win
+    else:
+        for i in range(0, 3):
+            if XOtable[i][0] == XOtable[i][1] == XOtable[i][2] == 'X' or XOtable[i][0] == XOtable[i][1] == XOtable[i][2] == 'O':
+                win = True
+                return win
+            elif XOtable[0][i] == XOtable[1][i] == XOtable[2][i] == 'X' or XOtable[0][i] == XOtable[1][i] == XOtable[2][i] == 'O':
+                win = True
+                return win
+    return win
+
+def GameXO(game_table):
+    player = 1
+    while True:
+        print(f'Ход игрока {player}')
+
+        while True:
+            valueXO = Enter_XO()
+            if not Is_exists(game_table, valueXO):
+                XO_to_table(game_table, valueXO)
+                break
+            else: print('На данной позиции уже есть значение! Повторите ввод...')
+
+        Print_XOtable(game_table)
+        if Is_won(game_table):
+            print(f'Игрок {player} победил!!!\n')
+            return        
+
+        if player == 1: player = 2
+        else: player = 1
+
+GameXO(listXO)
 
 # 4. Реализуйте RLE алгоритм: реализуйте модуль сжатия и восстановления данных.
 # Входные и выходные данные хранятся в отдельных текстовых файлах.
 # Пример: AAAAAAFDDCCCCCCCAEEEEEEEEEEEEEEEEE => 6A1F2D7C1A17E
-
-
