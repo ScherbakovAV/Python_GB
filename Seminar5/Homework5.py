@@ -196,20 +196,20 @@ print(f'\n____3. Игра в крестики-нолики____\n')
 
 listXO = [['-', '-', '-'], ['-', '-', '-'], ['-', '-', '-']]
 
-def Enter_XO(): # ввод строки, столбца и X или Y от пользователя
-    print('Введите через пробел: -номер строки- -номер столбца- -X или O-')
+def Enter_XO(player): # ввод строки и столбца от пользователя
+    if player == 1: print('Введите через пробел номер строки и номер столбца для ввода X...')
+    elif player == 2: print('Введите через пробел номер строки и номер столбца для ввода O...')
     while True:
         lst = input().split(' ')
-        if len(lst) == 3:
+        if len(lst) == 2:
             if int(lst[0]) in range(1, 4):
                 if int(lst[1]) in range(1, 4):
-                    if lst[2] in ['x', 'X', 'х', 'Х']:
-                        lst[2] = 'X'
+                    if player == 1:
+                        lst.append('X')
                         break
-                    elif lst[2] in ['o', 'O', 'о', 'О']:
-                        lst[2] = 'O'
+                    elif player == 2:
+                        lst.append('O')
                         break
-                    else: print('Вы ошиблись во вводе символа X или O. Повторите ввод...')
                 else: print('Такого столбца нет. Повторите ввод...')
             else: print('Такой строки нет. Повторите ввод...')
         else: print('Вы ввели неверное количество данных. Повторите ввод...')
@@ -249,11 +249,12 @@ def Is_won(XOtable): # проверка выйгрыша
 
 def GameXO(game_table):
     player = 1
+    count = 1
     while True:
         print(f'Ход игрока {player}')
 
         while True:
-            valueXO = Enter_XO()
+            valueXO = Enter_XO(player)
             if not Is_exists(game_table, valueXO):
                 XO_to_table(game_table, valueXO)
                 break
@@ -266,6 +267,11 @@ def GameXO(game_table):
 
         if player == 1: player = 2
         else: player = 1
+
+        count += 1
+        if count == 10:
+            print('Игра окончена. Ничья!')
+            return
 
 GameXO(listXO)
 
