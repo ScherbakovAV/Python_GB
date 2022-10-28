@@ -24,15 +24,15 @@ def Enter_number(text = '', type = 1): # функция ввода числа с
 
 # 1. Напишите программу, удаляющую из текста все слова, содержащие ""абв"".
 
-""" print(f'\n____1. Удаление из текста все слова, содержащие "абв"____\n')
+print(f'\n____1. Удаление из текста все слова, содержащие "абв"____\n')
 
 # text = input('Введите текст для проверки: ')
 text = 'Незабвенный зимбабвийский главбух'
 print(text)
-lst1 = i for i in text.split() if 'абв' not in i
+lst1 = (i for i in text.split() if 'абв' not in i)
 print(' '.join(lst1))
 
-input('Нажмите Enter для перехода к следующей задаче...') """
+input('Нажмите Enter для перехода к следующей задаче...')
 
 # 2. Создайте программу для игры с конфетами человек против человека.
 # Условие задачи: На столе лежит 2021 конфета. Играют два игрока делая ход друг после друга.
@@ -183,8 +183,8 @@ def Candies_game(candies = 2021, candies_max = 28, game_type = 1):
 candies_num = random.randint(50, 100)
 maximum = random.randint(5, 30)
 
-""" Candies_game(candies = candies_num, candies_max = maximum, game_type = game_mode())
-input('Нажмите Enter для перехода к следующей задаче...') """
+Candies_game(candies = candies_num, candies_max = maximum, game_type = game_mode())
+input('Нажмите Enter для перехода к следующей задаче...')
 
 # 3. Создайте программу для игры в ""Крестики-нолики"".
 # X |   |X
@@ -273,7 +273,8 @@ def GameXO(game_table):
             print('Игра окончена. Ничья!')
             return
 
-# GameXO(listXO)
+GameXO(listXO)
+input('Нажмите Enter для перехода к следующей задаче...')
 
 # 4. Реализуйте RLE алгоритм: реализуйте модуль сжатия и восстановления данных.
 # Входные и выходные данные хранятся в отдельных текстовых файлах.
@@ -281,13 +282,13 @@ def GameXO(game_table):
 
 print(f'\n____4. Реализация RLE алгоритма сжатия и восстановления данных____\n')
 
-def List_from_source(file): 
+def List_from_source(file): #извлечение данных из файла и преобразование их в лист строк
     with open(file, 'r', encoding = "utf-8") as data:
         str = data.read()
     lst = str.split()
     return lst
 
-def RLE_to_list(lst):
+def text_to_RLE(lst): # сжатие данных списка строк RLE алгоритмом
     RLE_list = []
     for i in range(len(lst)):
         RLE_list.append('')
@@ -301,14 +302,14 @@ def RLE_to_list(lst):
             if j == len(temp_str) - 1: RLE_list[i] += f'{count}{temp_str[j]}'
     return RLE_list
 
-def RLE_to_file(RLE, file):
+def List_to_file(RLE, file): # запись списка строк в файл построчно
     with open(file, 'w', encoding = "utf-8") as data:
         i = 0
         for i in range(len(RLE)):
             data.write(f'{RLE[i]}\n')
             i += 1
 
-def Unzipping_data(arc_list):
+def Unzipping_data(arc_list): # разархивация списка строк, сжатых RLE алгоритмом
     extr_list = []
     for i in range(len(arc_list)):
         extr_list.append('')
@@ -322,21 +323,29 @@ def Unzipping_data(arc_list):
                 tmp_digit = ''
     return extr_list
 
-source_file = 'source_text.txt'
-in_file = List_from_source(source_file)
-print(in_file)
+def Print_list(lst):
+    for item in lst:
+        print(str(item))
 
-RLE = RLE_to_list(in_file)
-print(RLE)
-arc_file = 'arc_text.txt'
-RLE_to_file(RLE, arc_file)
+source_file = 'source_text.txt' # файл-источник несжатых строк
+arc_file = 'arc_text.txt' # файл с заархивированными строками
+end_file = 'unzipped.txt' # конечный файл с распакованными строками из arc_text.txt
 
-extracted_data = List_from_source(arc_file)
-print(extracted_data)
+text_from_source = List_from_source(source_file)
+print(f'Исходный текст из файла source_text.txt:\n')
+Print_list(text_from_source)
 
-unz_data = Unzipping_data(extracted_data)
-print(unz_data)
+RLE_list = text_to_RLE(text_from_source)
+print(f'\nСжатый исходный текст:\n')
+Print_list(RLE_list)
+print(f'Создан файл arc_text.txt, куда помещён сжатый текст.\n')
 
-end_file = 'unzipped.txt'
-RLE_to_file(unz_data, end_file)
+List_to_file(RLE_list, arc_file)
 
+unz_data = Unzipping_data(List_from_source(arc_file))
+print(f'Извлечённый текст из файла arc_text.txt:\n')
+Print_list(unz_data)
+print(f'Создан файл unzipped.txt, куда помещён извлечённый текст.\n')
+
+List_to_file(unz_data, end_file)
+input('Нажмите Enter для выхода из программы...')
