@@ -273,8 +273,70 @@ def GameXO(game_table):
             print('Игра окончена. Ничья!')
             return
 
-GameXO(listXO)
+# GameXO(listXO)
 
 # 4. Реализуйте RLE алгоритм: реализуйте модуль сжатия и восстановления данных.
 # Входные и выходные данные хранятся в отдельных текстовых файлах.
 # Пример: AAAAAAFDDCCCCCCCAEEEEEEEEEEEEEEEEE => 6A1F2D7C1A17E
+
+print(f'\n____4. Реализация RLE алгоритма сжатия и восстановления данных____\n')
+
+def List_from_source(file): 
+    with open(file, 'r', encoding = "utf-8") as data:
+        str = data.read()
+    lst = str.split()
+    return lst
+
+def RLE_to_list(lst):
+    RLE_list = []
+    for i in range(len(lst)):
+        RLE_list.append('')
+        temp_str = str(lst[i])
+        count = 1
+        for j in range(1, len(temp_str)):
+            if temp_str[j] == temp_str[j - 1]: count += 1
+            else:
+                RLE_list[i] += f'{count}{temp_str[j - 1]}'
+                count = 1
+            if j == len(temp_str) - 1: RLE_list[i] += f'{count}{temp_str[j]}'
+    return RLE_list
+
+def RLE_to_file(RLE, file):
+    with open(file, 'w', encoding = "utf-8") as data:
+        i = 0
+        for i in range(len(RLE)):
+            data.write(f'{RLE[i]}\n')
+            i += 1
+
+def Unzipping_data(arc_list):
+    extr_list = []
+    for i in range(len(arc_list)):
+        extr_list.append('')
+        temp_str = str(arc_list[i])
+        tmp_digit = ''
+        for j in range(len(temp_str)):
+            if temp_str[j] in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']:
+                tmp_digit += temp_str[j]
+            else:
+                extr_list[i] += temp_str[j] * int(tmp_digit)
+                tmp_digit = ''
+    return extr_list
+
+source_file = 'source_text.txt'
+in_file = List_from_source(source_file)
+print(in_file)
+
+RLE = RLE_to_list(in_file)
+print(RLE)
+arc_file = 'arc_text.txt'
+RLE_to_file(RLE, arc_file)
+
+extracted_data = List_from_source(arc_file)
+print(extracted_data)
+
+unz_data = Unzipping_data(extracted_data)
+print(unz_data)
+
+end_file = 'unzipped.txt'
+RLE_to_file(unz_data, end_file)
+
