@@ -1,0 +1,10 @@
+Log at 2022-11-10 22:12:35.953280: Sensor1: 93.7   Sensor2: 19.66   Sensor3: 5.95   Sensor4: 91.89   Sensor5: 61.08   
+Log at 2022-11-10 22:12:37.925874: Sensor1: 45.87   Sensor2: 76.51   Sensor3: 80.13   Sensor4: 53.3   Sensor5: 57.79   
+Log at 2022-11-10 22:12:44.775961: Sensor1: 78.82   Sensor2: 83.25   Sensor3: 53.71   Sensor4: 12.2   Sensor5: 47.59   
+Log at 2022-11-10 22:12:45.215059: Sensor1: 46.56   Sensor2: 15.02   Sensor3: 5.18   Sensor4: 17.96   Sensor5: 53.07   
+Log at 2022-11-10 22:12:45.658160: Sensor1: 77.0   Sensor2: 13.55   Sensor3: 19.01   Sensor4: 28.74   Sensor5: 12.9   
+Log at 2022-11-10 22:12:47.138494: Sensor1: 3.65   Sensor2: 9.74   Sensor3: 93.52   Sensor4: 16.0   Sensor5: 29.37   
+Log at 2022-11-10 22:12:48.462423: Sensor1: 64.52   Sensor2: 68.87   Sensor3: 61.66   Sensor4: 53.38   Sensor5: 73.58   
+Log at 2022-11-10 22:12:48.972460: Sensor1: 15.52   Sensor2: 67.68   Sensor3: 82.54   Sensor4: 66.2   Sensor5: 70.32   
+Log at 2022-11-10 22:12:49.437531: Sensor1: 64.36   Sensor2: 96.97   Sensor3: 92.98   Sensor4: 69.55   Sensor5: 53.65   
+Log at 2022-11-10 22:12:50.483797: Sensor1: 54.31   Sensor2: 29.18   Sensor3: 92.54   Sensor4: 5.73   Sensor5: 99.8   
