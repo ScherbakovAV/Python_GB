@@ -1,5 +1,4 @@
 import random
-from decimal import Decimal
 
 def Enter_number(text, type = 1): # функция ввода числа с проверкой 
     print(text)
@@ -10,14 +9,10 @@ def Enter_number(text, type = 1): # функция ввода числа с пр
                 break
             except:
                 print("Ошибка! Введите целое число:")
-        elif type == 2 or type == 3:
+        elif type == 2:
             try:
-                if type == 2:
-                    value = float(input())
-                    break
-                elif type == 3:
-                    value = Decimal(input())
-                    break
+                value = float(input())
+                break
             except:
                 print("Ошибка! Введите число:")
     return value
@@ -30,8 +25,8 @@ def Enter_number(text, type = 1): # функция ввода числа с пр
 def number_e(acc):
     acc = abs(acc)
     d = 1 / (10 ** acc)
-    e = Decimal(1)
-    fact_e = Decimal(1)
+    e = 1
+    fact_e = 1
 
     count = 1
     while True:
@@ -45,7 +40,7 @@ def number_e(acc):
 
 print(f'\n____1. Вычисление числа "e"c заданной точностью____\n')
 accuracy = Enter_number('Введите требуемую точность числа "e" после запятой: ')
-print(f'e = {number_e(accuracy)}')
+print(f'e = {number_e(accuracy):.{accuracy}f}')
 
 
 # 2. Задайте натуральное число N. Напишите программу, которая составит список простых множителей числа N.
@@ -92,12 +87,28 @@ def unique_elements(main_list):
     
     return unique_list
 
+""" 
+Моя переработка:
+def unique_elements(main_list):
+    unique_list = [main_list[0]]
+
+    for item in main_list:
+        if not item in unique_list: unique_list.append(item)
+    
+    return unique_list """
+
 print(f'\n____3. Вывод списка неповторяющихся элементов исходной последовательности____\n')
 
 num_list = [random.randint(1, 9) for i in range(random.randint(1, 29))]
 print(f'Заданная последовательность чисел:\n{num_list}')
 print(f'Список неповторяющихся элементов исходной последовательности:\n{unique_elements(num_list)}')
 
+""" 
+Ещё вариант решения:
+num_list = [random.randint(1, 9) for i in range(random.randint(1, 29))]
+unique_list = set(num_list)
+print(f'Заданная последовательность чисел:\n{num_list}')
+print(f'Список неповторяющихся элементов исходной последовательности:\n{unique_list}') """
 
 # 4. Задана натуральная степень k. Сформировать случайным образом список коэффициентов
 # (значения от 0 до 100) многочлена и записать в файл многочлен степени k.
