@@ -1,4 +1,4 @@
-def Input_text(what_entering):
+def Input_text(what_entering): # ввод текста с проверкой ввода пустой строки
     print(f'Введите {what_entering}: ')
     while True:
         text = input()

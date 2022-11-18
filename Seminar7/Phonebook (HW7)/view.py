@@ -1,10 +1,19 @@
 from inputs import Input_text
-from interface import Mode_selection
 
 def Print_phonebook(base): # Печать справочника
+
+    import os
+    print('-----')
+
     with open(base, 'r', encoding="utf-8") as file:
+
+        if os.stat(base).st_size == 0:
+            print('Справочник пуст! Для добавления контакта используйте меню.')
+            return
+
         for line in file:
-            print(line.replace('\n', ''))
+            print(line.replace('\n', '').replace('_', ' '))
+    print(f'-----\n')
 
 
 def Print_file(): # вывод на печать внешнего файла
@@ -12,7 +21,7 @@ def Print_file(): # вывод на печать внешнего файла
     type_f = 1
       
     while True:
-        file_name = Input_text('имя файла ("q" для выхода в основное меню)')
+        file_name = Input_text('имя файла ("q" для отмены)').lower()
 
         if 'type_1' in file_name:
             type_f = 1
@@ -20,11 +29,8 @@ def Print_file(): # вывод на печать внешнего файла
         elif 'type_2' in file_name:
             type_f = 2
             break
-        elif file_name == 'q' or file_name == 'Q' or file_name == 'й' or file_name == 'Й':
-            Mode_selection()
-            return
-        else:
-            print('Имя файла некорректно!')
+        elif file_name == 'q' or file_name == 'й': return 'stop'
+        else: print('Имя файла некорректно!')
 
     while True:
         try:

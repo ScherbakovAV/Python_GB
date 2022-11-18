@@ -1,4 +1,3 @@
-from interface import Mode_selection
 import datetime
 dt = datetime.datetime.today()
 
@@ -11,10 +10,10 @@ def Write_contact(BD, contact):  # запись контакта в базу д�
 
 
 def Del_contact(BD): # Удаление последнего контакта из справочника
-    print(f'Вы уверены? Введите "d" для подтверждения и любую клавишу для отмены...')
+    print(f'Вы уверены? Введите "y" для подтверждения и любую клавишу для отмены...')
     choise = input().lower()
     
-    if choise == 'd' or choise == 'в':
+    if choise == 'y' or choise == 'н':
 
         with open(BD, 'r', encoding="utf-8") as data:
             lines = data.readlines()
@@ -22,11 +21,13 @@ def Del_contact(BD): # Удаление последнего контакта и
 
         with open(BD, 'w', encoding="utf-8") as data:
             data.writelines(lines)
+        
+        print('Удаление произведено...')
     
-    else: Mode_selection()
+    return
 
 
-def Base_to_file(file, export_type = 'type_1'):  # Запись базы данных справочника в файл
+def Base_to_file(file, export_type = 'type_1'):  # Экспорт базы данных справочника в файл
 
     file_name = (f'{export_type}_{dt.year}-{dt.month}-{dt.day}_{dt.hour}-{dt.minute}-{dt.second}.txt')
     contact_number = 1
@@ -35,7 +36,7 @@ def Base_to_file(file, export_type = 'type_1'):  # Запись базы дан�
         with open(file, 'r', encoding="utf-8") as source, open(file_name, 'w', encoding="utf-8") as target:
             
             for line in source:
-                export_str = line.replace('\n', '').replace('_', ' ')
+                export_str = line.replace('\n', '').replace(' ', '-').replace('_', ' ')
                 target.write(f'{contact_number}: {export_str}\n')
                 contact_number += 1
 
@@ -65,6 +66,8 @@ def File_to_base(base_file, file_to_copy): # запись внешнего фа�
             for line in file:
                 base.write(line.replace(f'{count}: ', '').replace(f' ', '_'))
                 count += 1
+                
+            print('Операция выполнена успешно')
             return
 
         elif 'type_2' in file_to_copy:
@@ -80,5 +83,6 @@ def File_to_base(base_file, file_to_copy): # запись внешнего фа�
                     count += 1
 
                 else: string += line.replace('\n', '') + '_'
-            
+
+            print('Операция выполнена успешно')
             return
