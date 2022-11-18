@@ -1,6 +1,5 @@
 file = 'employees.csv'
 
-
 def Delete_str(file):  # удаление строки
 
     print(f'Введите имя сотрудника для удаления данных о нём из БД')
