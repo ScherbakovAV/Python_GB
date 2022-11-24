@@ -6,7 +6,7 @@ import delete
 import editting
 import sorting
 
-token = '5981421814:AAH7bwtHhZsHp7JTTj0lxgyv4JTf7Aqi0Z4'
+token = ''
 bot = telebot.TeleBot(token)
 base = 'D:\Geek Brains\Python_education\Seminar8\Homework8\employers.csv'
 id = 0
