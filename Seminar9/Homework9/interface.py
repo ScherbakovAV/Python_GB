@@ -59,7 +59,7 @@ for row_num in range(1, 4):
     for col_num in range(3):
         frame = Frame(win, relief = RAISED, borderwidth = 1, padx = 5, pady = 5)
         frame.grid(row=row_num, column=col_num)
-        btn = Button(frame, text='', font='Arial 30', fg='black', bg='SlateGray1', width=20, height=9, command=lambda i = cell_num: mouse_click(i))
+        btn = Button(frame, text='', font='Arial 30', fg='black', bg='SlateGray1', width=20, height=10, command=lambda i = cell_num: mouse_click(i))
         btn.pack()
         buttons.append(btn)
         cell_num += 1
