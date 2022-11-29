@@ -1,11 +1,14 @@
 import telebot
-from enter import enter_num as ent
+from enter import format_complex
 
 # sys.exit() - функция завершения
 
 token = ''
 bot = telebot.TeleBot(token)
 base = 'D:\Geek Brains\Python_education\Seminar10\Homework10\log.csv'
+
+
+# ________________________________________________________________________________________
 
 @bot.message_handler(commands = ["start"]) # вывод главного меню
 def menu(message):
@@ -19,8 +22,12 @@ def menu(message):
                                         '- деление\n'\
                                         '- возведение в степень')
 
-    bot.send_message(message.chat.id, 'Для вызова справки введите /h')
+    bot.send_message(message.chat.id, 'Выберите режим работы:\n'\
+                                        '/1 - калькулятор действительных чисел\n'\
+                                        '/2 - калькулятор комплексных чисел\n'\
+                                        'Для вызова справки введите /h')
 
+# ________________________________________________________________________________________
 
 @bot.message_handler(commands = ["h"]) # вызов справки
 def help_menu(message):
@@ -30,15 +37,12 @@ def help_menu(message):
 def help_all(message):
     if message.text == '1': return 'ЗАГЛУШКА 2!'
 
+# ________________________________________________________________________________________
 
-@bot.message_handler(content_types=["text"])
-def input1(message):
-    ent(message)
-
-"""
-id = 0
-
-
+@bot.message_handler(commands = ["1"]) # работа с действительными числами
+def real_nums_calc(message):
+    bot.send_message(message.chat.id, f'ЗАГЛУШКА 1!')
+    bot.register_next_step_handler(message, help_all)
 
 # ___________________________________________________________________________
 
