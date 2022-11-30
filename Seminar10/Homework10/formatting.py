@@ -1,6 +1,6 @@
-def format_complex(string):
+def format_complex(string): # преобразование комплексного числа из строки в список строк и оператора
     print(string, end = ' -> ')
-    compl = [''] * 2
+    compl = [0, 0]
     temp = []
 
     if string[0] == '-':
@@ -72,22 +72,38 @@ def format_complex(string):
    
     return compl
 
-""" print(format_complex('15 + 8i'))
-print(format_complex('-15 + 8i'))
-print(format_complex('8i + 15'))
-print(format_complex('15 - 8i'))
-print(format_complex('-15 - 8i'))
-print(format_complex('i + 15'))
-print(format_complex('-i + 15'))
-print(format_complex('15 - i'))
-print(format_complex('15'))
-print(format_complex('-15'))
-print(format_complex('8i'))
-print(format_complex('-8i'))
-print(format_complex('i'))
-print(format_complex('-i')) """
+def complex_to_string(complex_list): # обратное преобразование списка комплексного числа в строку для вывода на печать
 
-def str_to_mathlist(line): # преобразование введённого строчного выражения в список чисел и операторов
+    if complex_list[0] != 0 and complex_list[1] != 0:
+
+        if complex_list[0] % 1 == 0: real = int(complex_list[0])
+        else: real = round(complex_list[0], 3) 
+
+        if complex_list[1] % 1 == 0: imagine = int(complex_list[1])
+        else: imagine = round(complex_list[1], 3)
+
+        if complex_list[1] >= 0:
+            if complex_list[1] == 1: return f'{real} + i'
+            else: return f'{real} + {imagine}i'
+        else:
+            if complex_list[1] == -1: return f'{real} - i'
+            else: return f'{real} - {-imagine}i'
+    
+    elif complex_list[0] == 0 and complex_list[1] != 0:
+
+        if complex_list[1] % 1 == 0: imagine = int(complex_list[1])
+        else: imagine = round(complex_list[1], 3)
+        
+        return f'{imagine}i'
+    
+    elif complex_list[0] != 0 and complex_list[1] == 0:
+
+        if complex_list[0] % 1 == 0: real = int(complex_list[0])
+        else: real = round(complex_list[0], 3) 
+        
+        return f'{real}'
+
+def format_real(line): # преобразование введённого строчного выражения в список чисел и операторов
 
     line = line.replace(',', '.')
     math_list = []
@@ -107,38 +123,3 @@ def str_to_mathlist(line): # преобразование введённого �
     if math_list[0] == '': math_list.pop(0)
 
     return math_list
-
-def real_solve(math): # нахождение результата выражения из списка чисел и операторов
-
-    i = 0
-    while '*' in math or '/' in math:
-        if math[i] == '*' or math[i] == '/':
-            if math[i] == '*': math[i] = math[i - 1] * math[i + 1]
-            elif math[i] == '/': math[i] = math[i - 1] / math[i + 1]
-            math.pop(i + 1)
-            math.pop(i - 1)
-        else: i += 1
-
-    if math[0] == '-':
-        math[1] = - math[1]
-        math.pop(0)
-    
-    i = 0    
-    while '+' in math or '-' in math:
-        if math[i] == '+' or math[i] == '-':
-            if math[i] == '+': math[i] = math[i - 1] + math[i + 1]
-            elif math[i] == '-': math[i] = math[i - 1] - math[i + 1]
-            math.pop(i + 1)
-            math.pop(i - 1)
-        else: i += 1
-    
-    if math[0] % 1 == 0: math[0] = int(math[0])
-    return math[0]
-
-""" a = '24/2*3+30'
-b = '-8+5.2 -2,4/1 - 0.21 * 2'
-c = '1+5-7+5*4'
-d = '1*2*3/2'
-string_lst = str_to_mathlist(d)
-print(string_lst)
-print(real_solve(string_lst)) """
