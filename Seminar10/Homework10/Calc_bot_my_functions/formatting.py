@@ -1,5 +1,4 @@
 def format_complex(string): # преобразование комплексного числа из строки в список строк и оператора
-    print(string, end = ' -> ')
     compl = [0, 0]
     temp = []
 
@@ -15,6 +14,9 @@ def format_complex(string): # преобразование комплексно�
                     if temp[0].replace('i', '') == '':
                         compl[0] = float(temp[1])
                         compl[1] = -float(1)
+                    else:
+                        compl[0] = float(temp[1])
+                        compl[1] = -float(temp[0].replace('i', ''))
                 else:
                     compl[0] = -float(temp[0]) 
 
@@ -25,9 +27,12 @@ def format_complex(string): # преобразование комплексно�
                 temp = string.replace(' ', '').split('-')
 
                 if 'i' in temp[0]:
-                    if element.replace('i', '') == '':
+                    if temp[0].replace('i', '') == '':
                         compl[0] = -float(temp[1])
-                        compl[1] = float(1)
+                        compl[1] = -float(1)
+                    else:
+                        compl[0] = -float(temp[1])
+                        compl[1] = -float(temp[0].replace('i', ''))
                 else:
                     compl[0] = -float(temp[0]) 
 
@@ -55,9 +60,12 @@ def format_complex(string): # преобразование комплексно�
                 temp = string.replace(' ', '').split('-')
 
                 if 'i' in temp[0]:
-                    if element.replace('i', '') == '':
-                        compl[0] = float(temp[1])
+                    if temp[0].replace('i', '') == '':
+                        compl[0] = -float(temp[1])
                         compl[1] = float(1)
+                    else:
+                        compl[0] = -float(temp[1])
+                        compl[1] = float(temp[0].replace('i', ''))
                 else:
                     compl[0] = float(temp[0])
 
@@ -123,3 +131,26 @@ def format_real(line): # преобразование введённого ст�
     if math_list[0] == '': math_list.pop(0)
 
     return math_list
+
+""" print(format_complex('5 + 5i'))
+print(format_complex('-5 + 5i'))
+print(format_complex('5 - 5 i'))
+print(format_complex('-5 - 5i'))
+print(format_complex('5 + i'))
+print(format_complex('5 - i'))
+print(format_complex('-5 + i'))
+print(format_complex('-5 - i'))
+print(format_complex('5'))
+print(format_complex('-5'))
+print(format_complex('5i'))
+print(format_complex('-5i'))
+print(format_complex('i'))
+print(format_complex('-i'))
+
+print(format_complex('5i + 6'))
+print(format_complex('-5i + 6'))
+print(format_complex('5i - 6'))
+print(format_complex('-5i - 6'))
+print(format_complex('-i - 6'))
+print(format_complex('-i + 6'))
+ """

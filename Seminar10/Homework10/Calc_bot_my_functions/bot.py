@@ -1,12 +1,13 @@
 import telebot
 from formatting import format_complex, complex_to_string, format_real
 from solve import real_solve, complex_solve
-from log import logger
+from log import logger, show_log
 
 token = ''
 bot = telebot.TeleBot(token)
 base = 'D:\Geek Brains\Python_education\Seminar10\Homework10\log.csv'
 
+log_file = 'Seminar10\Homework10\Calc_bot_my_functions\log.csv'
 
 # ________________________________________________________________________________________
 
@@ -56,8 +57,12 @@ def real_nums_calc(message):
 def solve_real(message):
     math_formula = format_real(message.text)
     result_real = real_solve(math_formula)
-    logger(f'{message.text} = {result_real}')
-    bot.send_message(message.chat.id, f'{message.text} = {result_real}')
+    if result_real == None:
+        bot.send_message(message.chat.id, f'Деление на 0')
+        logger(f'{message.text} - деление на 0', log_file)
+    else: 
+        logger(f'{message.text} = {result_real}', log_file)
+        bot.send_message(message.chat.id, f'{message.text} = {result_real}')
 
 # ___________________________________________________________________________
 
@@ -86,11 +91,21 @@ def second_complex_input_and_solve(message): # ввод второго комп�
     complex_second = message.text
     f_complex_second = format_complex(complex_second)
     result_complex_list = complex_solve(f_complex_first, f_complex_second, oper)
-    result_complex = complex_to_string(result_complex_list)
-    logger(f'{complex_first} {oper} {complex_second} = {result_complex}')
-    bot.send_message(message.chat.id, f'{complex_first} {oper} {complex_second} = {result_complex}')
-    return f_complex_second
+    if result_complex_list == None:
+        bot.send_message(message.chat.id, f'Деление на 0')
+        logger(f'{message.text} - деление на 0', log_file)
+    else:
+        result_complex = complex_to_string(result_complex_list)
+        logger(f'({complex_first}) {oper} ({complex_second}) = {result_complex}', log_file)
+        bot.send_message(message.chat.id, f'{complex_first} {oper} {complex_second} = {result_complex}')
 
+# ___________________________________________________________________________
+
+@bot.message_handler(commands = ["3"]) 
+def coplex_nums_calc(message):
+    log_text = show_log(log_file)
+    bot.send_message(message.chat.id, log_text)
+    
 # ___________________________________________________________________________
 
 print('Сервер запущен...')
