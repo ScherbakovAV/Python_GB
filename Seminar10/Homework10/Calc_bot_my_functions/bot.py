@@ -1,9 +1,9 @@
 import telebot
 from formatting import format_complex, complex_to_string, format_real
 from solve import real_solve, complex_solve
-import sys
+from log import logger
 
-token = '5981421814:AAH7bwtHhZsHp7JTTj0lxgyv4JTf7Aqi0Z4'
+token = ''
 bot = telebot.TeleBot(token)
 base = 'D:\Geek Brains\Python_education\Seminar10\Homework10\log.csv'
 
@@ -56,6 +56,7 @@ def real_nums_calc(message):
 def solve_real(message):
     math_formula = format_real(message.text)
     result_real = real_solve(math_formula)
+    logger(f'{message.text} = {result_real}')
     bot.send_message(message.chat.id, f'{message.text} = {result_real}')
 
 # ___________________________________________________________________________
@@ -86,15 +87,11 @@ def second_complex_input_and_solve(message): # ввод второго комп�
     f_complex_second = format_complex(complex_second)
     result_complex_list = complex_solve(f_complex_first, f_complex_second, oper)
     result_complex = complex_to_string(result_complex_list)
+    logger(f'{complex_first} {oper} {complex_second} = {result_complex}')
     bot.send_message(message.chat.id, f'{complex_first} {oper} {complex_second} = {result_complex}')
     return f_complex_second
 
 # ___________________________________________________________________________
-
-
-
-# ___________________________________________________________________________
-
 
 print('Сервер запущен...')
 bot.polling(none_stop = True, interval = 0)
