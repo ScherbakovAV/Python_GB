@@ -1,7 +1,7 @@
 import telebot
 from logger import logger
 
-token = '5981421814:AAH7bwtHhZsHp7JTTj0lxgyv4JTf7Aqi0Z4'
+token = ''
 bot = telebot.TeleBot(token)
 
 @bot.message_handler(commands=['start', 'help'])
