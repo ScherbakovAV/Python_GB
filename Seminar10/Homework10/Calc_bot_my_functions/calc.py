@@ -5,7 +5,6 @@ from log import logger, show_log
 
 token = ''
 bot = telebot.TeleBot(token)
-base = 'D:\Geek Brains\Python_education\Seminar10\Homework10\log.csv'
 
 log_file = 'Seminar10\Homework10\Calc_bot_my_functions\log.csv'
 
